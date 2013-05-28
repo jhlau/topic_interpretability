@@ -213,6 +213,9 @@ for i, topic_list in enumerate(topics):
 
         #pmi, condprob features with other words
         for topic_word in topic_list:
+
+            if target_word == topic_word:
+                continue
         
             if debug:
                 print "\n\nPair = (", target_word, topic_word, ")"
