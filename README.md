@@ -48,17 +48,13 @@ corpus is given in the package.
 
 Output
 ======
-Debug OFF (in ComputeObservedCoherence.py/ComputeWordIntrusion.py):
-* One score per line, each score corresponds to the topic of the same line
+* Debug OFF (in ComputeObservedCoherence.py/ComputeWordIntrusion.py): one score per line, each score corresponds to the topic of the same line
+* Debug ON (in ComputeObservedCoherence.py/ComputeWordIntrusion.py): score, topics and intruder words (for the word intrusion task only) are displayed
 
-Debug ON (in ComputeObservedCoherence.py/ComputeWordIntrusion.py):
-* Score, topics and intruder words (for the word intrusion task only) are displayed
-
-Notes
-
+Note
+====
 The sampling of word counts work for multi-word topics (i.e. topics with phrases/collocations). Use 
-the underscore symbol ("_") to concatenate the phrases/collocations. E.g.:
-Topic 1: hello_world this_is_a_collocation apple orange banana durian
+the underscore symbol ("_") to concatenate the phrases/collocations. E.g. Topic 1: hello_world this_is_a_collocation apple orange banana durian
 
 Licensing
 =========
