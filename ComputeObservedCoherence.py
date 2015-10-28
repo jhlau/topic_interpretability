@@ -17,11 +17,17 @@ parser = argparse.ArgumentParser(description=desc)
 parser.add_argument("topic_file", help="file that contains the topics")
 parser.add_argument("metric", help="type of evaluation metric", choices=["pmi","npmi","lcp"])
 parser.add_argument("wordcount_file", help="file that contains the word counts")
+
+###################
+#optional argument#
+###################
+parser.add_argument("-t", "--topn", type=int, default=10, \
+    help="top-N topic words to consider for computing coherence")
+
 args = parser.parse_args()
 
 #parameters
 colloc_sep = "_" #symbol for concatenating collocations
-topN = 10 #top-N topic words to consider for computing coherence
 debug = True
 
 #input
@@ -123,7 +129,7 @@ topic_tw = {} #{topicid: topN_topicwords}
 all_topic_words = set([])
 topic_id = 0
 for line in topic_file.readlines():
-    topic_list = line.split()[:topN]
+    topic_list = line.split()[:args.topn]
     topic_tw[topic_id] = " ".join(topic_list)
     topic_coherence[topic_id] = calc_topic_coherence(topic_list)
     for word in topic_list:
