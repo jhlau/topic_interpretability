@@ -8,6 +8,7 @@ import sys
 import os
 import threading
 import time
+import codecs
 from multiprocessing import Pool
 
 #parser arguments
@@ -30,7 +31,7 @@ debug = False
 TOTALWKEY = "!!<TOTAL_WINDOWS>!!" #key name for total number of windows (in wordcount)
 
 #input
-topic_file = open(args.topic_file)
+topic_file = codecs.open(args.topic_file, "r", "utf-8")
 
 #global variables
 #a dictionary that stores related topic words, e.g. { "space": set(["space", "earth", ...]), ... }
@@ -163,7 +164,7 @@ def calcwcngram(worker_num, window_size, corpus_file, topic_word_rel, unigram_li
     total_windows = 0
 
     #sys.stderr.write("Worker " + str(worker_num) + " starts: " + str(time.time()) + "\n")
-    for line in open(corpus_file):
+    for line in codecs.open(corpus_file, "r", "utf-8"):
         #convert the line into a list of word indexes
         words = convert_to_index(line, unigram_rev)
 
@@ -224,6 +225,9 @@ def update_topic_word_rel(w1, w2):
 ######
 #main#
 ######
+#use utf-8 for stdout
+sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
+
 #get the partitions of the reference corpus
 for f in os.listdir(args.ref_corpus_dir):
     if not f.startswith("."):

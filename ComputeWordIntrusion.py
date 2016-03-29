@@ -5,6 +5,7 @@ Date:           May 2013
 
 import argparse
 import sys
+import codecs
 from collections import defaultdict
 
 #parser arguments
@@ -25,9 +26,9 @@ args = parser.parse_args()
 debug = True
 
 #input
-topic_file = open(args.topic_file)
-test_file = open(args.test_data)
-predictions_file = open(args.predictions_output)
+topic_file = codecs.open(args.topic_file, "r", "utf-8")
+test_file = codecs.open(args.test_data, "r", "utf-8")
+predictions_file = codecs.open(args.predictions_output, "r", "utf-8")
 
 #global variables
 prediction_scores = []
@@ -43,6 +44,8 @@ qid_tw = defaultdict(list) #topic words for each qid
 ######
 #main#
 ######
+#use utf-8 for stdout
+sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
 
 #process prediction file
 for line in predictions_file:

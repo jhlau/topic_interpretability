@@ -7,6 +7,8 @@ import argparse
 import sys
 import operator
 import math
+import codecs
+
 
 #parser arguments
 desc = "Computes the observed coherence for a given topic and word-count file."
@@ -31,8 +33,8 @@ colloc_sep = "_" #symbol for concatenating collocations
 debug = True
 
 #input
-topic_file = open(args.topic_file)
-wc_file = open(args.wordcount_file)
+topic_file = codecs.open(args.topic_file, "r", "utf-8")
+wc_file = codecs.open(args.wordcount_file, "r", "utf-8")
 
 #constants
 WTOTALKEY = "!!<TOTAL_WINDOWS>!!" #key name for total number of windows (in word count file)
@@ -45,6 +47,8 @@ wordpos = {} #a dictionary of pos distribution
 ###########
 #functions#
 ###########
+#use utf-8 for stdout
+sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
 
 #compute the association between two words
 def calc_assoc(word1, word2):
