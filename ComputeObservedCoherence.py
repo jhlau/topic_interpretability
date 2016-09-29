@@ -8,6 +8,7 @@ import sys
 import operator
 import math
 import codecs
+import numpy
 
 
 #parser arguments
@@ -154,3 +155,5 @@ for item in tc_items:
 if debug:
     print "=========================================================================="
     print "Average Topic Coherence =", sum(topic_coherence.values())/len(topic_coherence)
+    print "Median Topic Coherence =", numpy.median(topic_coherence.values())
+    print sum(topic_coherence.values())/len(topic_coherence), "\t", numpy.median(topic_coherence.values())

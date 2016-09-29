@@ -265,6 +265,8 @@ for unigram in unigram_list:
 #spawn multiple threads to process the corpus
 po = Pool()
 for i, cp in enumerate(corpus_partitions):
+    sys.stderr.write("creating a thread for corpus partition " + cp + "\n")
+    sys.stderr.flush()
     po.apply_async(calcwcngram, (i, window_size, cp, topic_word_rel, unigram_list, unigram_rev,), \
         callback=calcwcngram_complete)
 po.close()
