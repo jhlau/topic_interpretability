@@ -124,7 +124,7 @@ def get_ngrams(words, topic_word_rel):
     for ngram in all_ngrams:
         for i in range(1, len(ngram)+1):
             for j in range(0, len(ngram)-i+1):
-                comb = [ str(item) for item in ngram[j:j+i] ]
+                comb = [ item for item in ngram[j:j+i] ]
                 ngrams_perm.append(' '.join(comb))
 
     #remove duplicates
