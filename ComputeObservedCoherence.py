@@ -8,7 +8,8 @@ import sys
 import operator
 import math
 import codecs
-import numpy
+import numpy as np
+from collections import defaultdict
 
 
 #parser arguments
@@ -24,14 +25,15 @@ parser.add_argument("wordcount_file", help="file that contains the word counts")
 ###################
 #optional argument#
 ###################
-parser.add_argument("-t", "--topn", type=int, default=10, \
-    help="top-N topic words to consider for computing coherence")
+parser.add_argument("-t", "--topns", nargs="+", type=int, default=[10], \
+    help="list of top-N topic words to consider for computing coherence; e.g. '-t 5 10' means it " + \
+    " will compute coherence over top-5 words and top-10 words and then take the mean of both values." + \
+    " Default = [10]")
 
 args = parser.parse_args()
 
 #parameters
 colloc_sep = "_" #symbol for concatenating collocations
-debug = True
 
 #input
 topic_file = codecs.open(args.topic_file, "r", "utf-8")
@@ -129,31 +131,27 @@ if WTOTALKEY in wordcount:
     window_total = wordcount[WTOTALKEY]
 
 #read the topic file and compute the observed coherence
-topic_coherence = {} # {topicid: tc}
+topic_coherence = defaultdict(list) # {topicid: [tc]}
 topic_tw = {} #{topicid: topN_topicwords}
-all_topic_words = set([])
-topic_id = 0
-for line in topic_file.readlines():
-    topic_list = line.split()[:args.topn]
+for topic_id, line in enumerate(topic_file):
+    topic_list = line.split()[:max(args.topns)]
     topic_tw[topic_id] = " ".join(topic_list)
-    topic_coherence[topic_id] = calc_topic_coherence(topic_list)
-    for word in topic_list:
-        all_topic_words.add(word)
-
-    topic_id += 1
+    for n in args.topns:
+        topic_coherence[topic_id].append(calc_topic_coherence(topic_list[:n]))
 
 #sort the topic coherence scores in terms of topic id
 tc_items = sorted(topic_coherence.items())
+mean_coherence_list = []
 for item in tc_items:
     topic_words = topic_tw[item[0]].split()
-    if debug:
-        print ("[%.2f]" % item[1]), topic_tw[item[0]]
-    else:
-        print item[1]
+    mean_coherence = np.mean(item[1])
+    mean_coherence_list.append(mean_coherence)
+    print ("[%.2f] (" % mean_coherence),
+    for i in item[1]:
+        print ("%.2f;" % i),
+    print ")", topic_tw[item[0]]
 
 #print the overall topic coherence for all topics
-if debug:
-    print "=========================================================================="
-    print "Average Topic Coherence =", sum(topic_coherence.values())/len(topic_coherence)
-    print "Median Topic Coherence =", numpy.median(topic_coherence.values())
-    print sum(topic_coherence.values())/len(topic_coherence), "\t", numpy.median(topic_coherence.values())
+print "=========================================================================="
+print "Average Topic Coherence = %.3f" % np.mean(mean_coherence_list)
+print "Median Topic Coherence = %.3f" % np.median(mean_coherence_list)
