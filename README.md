@@ -4,7 +4,7 @@ coherence.
 
 Updates
 =======
-* 2016-10-31: updated ComputeObservedCoherence to compute mean coherence over multiple top-N words; e.g. using option "-t 5 10 15 20" means it will compute coherence for top-5/10/15/20 words and then take the mean over the 4 values. This is reflecting from the studies that using multiple top-N words improves performance (see "The Sensitivity of Topic Coherence Evaluation to Topic Cardinality" in [Other Related Papers](#other-related-papers))
+* 2016-10-31: updated ComputeObservedCoherence to compute mean coherence over multiple top-N words; e.g. using option "-t 5 10 15 20" means it will compute coherence for top-5/10/15/20 words and then take the mean over the 4 values. This is reflecting from our latest study where we found using multiple top-N words improves performance (see "The Sensitivity of Topic Coherence Evaluation to Topic Cardinality" in [Other Related Papers](#other-related-papers))
 
 Directory Structure and Files
 =============================
