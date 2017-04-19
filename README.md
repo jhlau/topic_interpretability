@@ -2,6 +2,10 @@ This package contains the scripts and various python tools for computing the sem
 interpretability of topics via: (1) the word intrusion task; (2) PMI/NPMI/LCP-based observed 
 coherence.
 
+Updates
+=======
+* 2016-10-31: updated ComputeObservedCoherence to compute mean coherence over multiple top-N words; e.g. using option "-t 5 10 15 20" means it will compute coherence for top-5/10/15/20 words and then take the mean over the 4 values. Our latest study found that using multiple top-N words improves performance (see "The Sensitivity of Topic Coherence Evaluation to Topic Cardinality" in [Other Related Papers](#other-related-papers))
+
 Directory Structure and Files
 =============================
 * ComputeObservedCoherence.py: computes the topic observed coherence (pairwise PMI/NPMI/LCP)
@@ -62,13 +66,14 @@ Licensing
 
 Publications
 ------------
-#### Original Paper
+####Original Paper
 * Jey Han Lau, David Newman and Timothy Baldwin (2014). Machine Reading Tea Leaves: Automatically Evaluating Topic Coherence and Topic Model Quality. In Proceedings of the 14th Conference of the European Chapter of the Association for Computational Linguistics (EACL 2014), Gothenburg, Sweden, pp. 530—539.
 
-#### Other Related Papers
+####Other Related Papers
 * David Newman, Jey Han Lau, Karl Grieser and Timothy Baldwin (2010). Automatic Evaluation of Topic
 Coherence. In Proceedings of Human Language Technologies: The 11th Annual Conference of the North
 American Chapter of the Association for Computational Linguistics (NAACL HLT 2010), Los Angeles,
 USA, pp. 100—108.
-* Jey Han Lau, Timothy Baldwin and David Newman (to appear). On Collocations and Topic Models. ACM 
-Transactions on Speech and Language Processing.
+* Jey Han Lau, Timothy Baldwin and David Newman (2013). On Collocations and Topic Models. ACM 
+Transactions on Speech and Language Processing 10(3), pp. 10:1—10:14.
+* Jey Han Lau and Timothy Baldwin (2016). The Sensitivity of Topic Coherence Evaluation to Topic Cardinality. In Proceedings of the 2016 Conference of the North American Chapter of the Association for Computational Linguistics — Human Language Technologies (NAACL HLT 2016), San Diego, USA, pp. 483—487.
