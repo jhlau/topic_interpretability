@@ -9,6 +9,7 @@ import operator
 import math
 import codecs
 import numpy as np
+import cPickle as pickle
 from collections import defaultdict
 
 
@@ -29,6 +30,7 @@ parser.add_argument("-t", "--topns", nargs="+", type=int, default=[10], \
     help="list of top-N topic words to consider for computing coherence; e.g. '-t 5 10' means it " + \
     " will compute coherence over top-5 words and top-10 words and then take the mean of both values." + \
     " Default = [10]")
+parser.add_argument("-s", "--save_coherence", help="save coherence score for each topic into a pickle file")
 
 args = parser.parse_args()
 
@@ -104,7 +106,10 @@ def calc_topic_coherence(topic_words):
             if target_word != topic_word:
                 topic_assoc.append(calc_assoc(w1, w2))
 
-    return float(sum(topic_assoc))/len(topic_assoc)
+    if len(topic_assoc) != 0:
+        return float(sum(topic_assoc))/len(topic_assoc)
+    else:
+        return 0.0
 
 ######
 #main#
@@ -155,3 +160,6 @@ for item in tc_items:
 print "=========================================================================="
 print "Average Topic Coherence = %.3f" % np.mean(mean_coherence_list)
 print "Median Topic Coherence = %.3f" % np.median(mean_coherence_list)
+
+if args.save_coherence:
+    pickle.dump(mean_coherence_list, open(args.save_coherence, "w")) 
