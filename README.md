@@ -66,10 +66,10 @@ Licensing
 
 Publications
 ------------
-####Original Paper
+#### Original Paper
 * Jey Han Lau, David Newman and Timothy Baldwin (2014). Machine Reading Tea Leaves: Automatically Evaluating Topic Coherence and Topic Model Quality. In Proceedings of the 14th Conference of the European Chapter of the Association for Computational Linguistics (EACL 2014), Gothenburg, Sweden, pp. 530—539.
 
-####Other Related Papers
+#### Other Related Papers
 * David Newman, Jey Han Lau, Karl Grieser and Timothy Baldwin (2010). Automatic Evaluation of Topic
 Coherence. In Proceedings of Human Language Technologies: The 11th Annual Conference of the North
 American Chapter of the Association for Computational Linguistics (NAACL HLT 2010), Los Angeles,
